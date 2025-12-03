@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: skillbarter_backend
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      - skillnet
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: skillbarter_frontend
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - skillnet
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: skillbarter_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - skillnet
+
+networks:
+  skillnet:
+
+volumes:
+  db_data:

@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --container-max: 1100px;
+    --accent: #0ea5e9;
+    --muted: #6b7280;
+}
+
+html,
+body,
+#root {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+body {
+    @apply bg-gray-50 text-gray-800 antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded transition;
+}
+
+.h-screen-fit {
+    min-height: 100vh;
+}
+
+:focus {
+    outline: 2px solid rgba(14,165,233,0.15);
+    outline-offset: 2px;
+}
